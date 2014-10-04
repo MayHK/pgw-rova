@@ -79,8 +79,27 @@
 						</form>
                         <!-- PRIVACY POLICY LINK -->                
                         <p> <br> <br> <br>
-                            <a href="#" id="modal-privacy" class="modal-trigger">privacy policy</a>
-                        </p>
+                            <a href="#" data-toggle="modal" data-target="#privModal">privacy policy</a>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="privModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">Privacy Policy</h4>
+                                  </div>
+                                  <div class="modal-body">
+                                    Your email will never be shared with a third party. We'll only use it to notify you of product and company news and updates. You'll have the opportunity to unsubscribe at any time, immediately, once you receive your first email.<br>
+                                      - The ROVR Team
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>                            
+                    </p>
                 </div>
 				<!-- Widget: Newsletter end -->	
 				</div>

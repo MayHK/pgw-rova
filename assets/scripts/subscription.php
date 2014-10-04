@@ -1,59 +1,30 @@
 <?php
 
+require_once('./MCAPI.class.php');
 extract($_POST);
 
-// MODIFY THESE CONFIGS
-define('DB_HOST', 'localhost');
-define('DB_NAME', '');
-define('DB_USER', '');
-define('DB_PASS', '');
-define('ADMIN_EMAIL', 'rictor@thebeatsmiths.net');
-//--------------------------------------------
+// Get your API key from http://admin.mailchimp.com/account/api/
+define('MC_API_KEY', '67fc96068d1d7521bef76e10e655c66f-us7');
 
+// Get your list unique id from http://admin.mailchimp.com/lists/
+// under settings at the bottom of the page, look for unique id 
+define('MC_LIST_ID', 'b89ff1794a');
 
-
-try {
-	// Connect to mysql.
-	$db = new PDO('mysql:host='.DB_HOST.';dbname='.DB_NAME, DB_USER, DB_PASS);
-} catch(Exception $e) {
-	die('db_failed');
-}
-
-// check if table exists 
-$db->exec('CREATE TABLE IF NOT EXISTS newsletter (email VARCHAR(255), time VARCHAR(255))');
-
-
-// Check if email is valid 
+// check if email is valid 
 if ( isset($email) && validEmail($email) ) {
 		
-	/* check if exists */
-	$query = $db->prepare('SELECT COUNT(*) AS count FROM newsletter WHERE email = :email');  
-	$query->execute(array(':email' => $email));
-	$result = $query->fetch();
-			
-	if ( $result['count'] == 0 ) { // Email does not exist.
-	
-		$query = $db->prepare('INSERT INTO newsletter (email, time) VALUES (:email, :time)');  
-		$query->execute(array('email' => $email, 'time' => date('Y-m-d H:i:s')));
-		
-		// Send notification to admin
-		$admin_email = 'rictor@thebeatsmiths.net'; // your email
-		$subject = 'New subscriber'; // Subject
-		$message = 'Hi Louis, you have one new subscriber. This is his/her e-mail address: ' . $email . '.'; // Message
-		$headers = "From:" . $email;
-		mail($admin_email,$subject,$message,$headers);
-	
+	$api = new MCAPI(MC_API_KEY);
+	$listID = MC_LIST_ID;
+
+	if($api->listSubscribe($listID, $email, '') === true) {
 		echo 'success';
-		
-	} else { // E-mail exists.
+	}else{
 		echo 'subscribed';
 	}
 	
 } else {
 	echo 'invalid';
 }
-	
-
 
 function validEmail($email=NULL)
 {
