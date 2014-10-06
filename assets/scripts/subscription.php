@@ -4,11 +4,11 @@ require_once('./MCAPI.class.php');
 extract($_POST);
 
 // Get your API key from http://admin.mailchimp.com/account/api/
-define('MC_API_KEY', '67fc96068d1d7521bef76e10e655c66f-us7');
+define('MC_API_KEY', '32ca3e182224f5495996042dfa2c60b1-us9');
 
 // Get your list unique id from http://admin.mailchimp.com/lists/
 // under settings at the bottom of the page, look for unique id 
-define('MC_LIST_ID', 'b89ff1794a');
+define('MC_LIST_ID', '3f3cb4a8ee');
 
 // check if email is valid 
 if ( isset($email) && validEmail($email) ) {
